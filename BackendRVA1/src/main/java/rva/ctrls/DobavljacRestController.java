@@ -18,7 +18,6 @@ import rva.jpa.Dobavljac;
 import rva.reps.DobavljacRepository;
 
 
-
 @RestController
 public class DobavljacRestController {
 
