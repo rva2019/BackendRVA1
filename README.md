@@ -4,7 +4,7 @@ Ukoliko nije instaliran, potrebno je instalirati [Git](https://git-scm.com/downl
 
 Koraci za kloniranje projekta sa GitHub-a:
 - U terminalu Visual Studio Code-a pozicionirati se na folder u koji će biti kloniran projekat
-- Naredbom **git clone https://github.com/rva2019/FrontendRVA4.git**  
+- Naredbom **git clone https://github.com/rva2019/BackendRVA1**  
 projekat je kloniran sa GitHub-a
 
 ## Pokretanje aplikacije
