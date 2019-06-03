@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Artikl } from '../../models/artikl';
 import { ArtiklService } from '../../services/artikl.service';
 import { HttpClient } from '@angular/common/http';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { ArtiklDialogComponent } from '../dialogs/artikl-dialog/artikl-dialog.component';
 
 @Component({
@@ -14,14 +14,29 @@ import { ArtiklDialogComponent } from '../dialogs/artikl-dialog/artikl-dialog.co
 export class ArtiklComponent implements OnInit {
 
   displayedColumns = ['id', 'naziv', 'proizvodjac', 'actions'];
-  dataSource: Observable<Artikl[]>;
+  dataSource: MatTableDataSource<Artikl>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(public httpClient: HttpClient,
               public dialog: MatDialog,
               public artiklService: ArtiklService) { }
 
   public loadData() {
-    this.dataSource = this.artiklService.getAllArtikl();
+    this.artiklService.getAllArtikl().subscribe(data => {
+      this.dataSource = new MatTableDataSource(data);
+
+      this.dataSource.sortingDataAccessor = (data, property) => {
+        switch(property) {
+          case 'id': return data[property];
+          default: return data[property].toLocaleLowerCase();
+        }
+      };
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
   }
   
   ngOnInit() {
@@ -37,6 +52,10 @@ export class ArtiklComponent implements OnInit {
       if(result == 1)
         this.loadData();
     });
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

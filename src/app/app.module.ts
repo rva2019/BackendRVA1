@@ -23,7 +23,9 @@ import { MatButtonModule,
          MatCheckbox,
          MatNativeDateModule,
          MatCheckboxModule,
-         MatDatepickerModule} from '@angular/material';
+         MatDatepickerModule,
+         MatPaginatorModule,
+         MatSortModule} from '@angular/material';
 import { HomeComponent } from './components/core/home/home.component';
 import { AboutComponent } from './components/core/about/about.component';
 import { AuthorComponent } from './components/core/author/author.component';
@@ -41,6 +43,8 @@ import { DobavljacDialogComponent } from './components/dialogs/dobavljac-dialog/
 import { DobavljacService } from './services/dobavljac.service';
 import { PorudzbinaDialogComponent } from './components/dialogs/porudzbina-dialog/porudzbina-dialog.component';
 import { PorudzbinaService } from './services/porudzbina.service';
+import { StavkaPorudzbineService } from './services/stavkaPorudzbine.service';
+import { StavkaPorudzbineDialogComponent } from './components/dialogs/stavka-porudzbine-dialog/stavka-porudzbine-dialog.component';
 
 const Routes = [
   { path: 'artikl', component: ArtiklComponent },
@@ -67,7 +71,8 @@ const Routes = [
     StavkaPorudzbineComponent,
     ArtiklDialogComponent,
     DobavljacDialogComponent,
-    PorudzbinaDialogComponent
+    PorudzbinaDialogComponent,
+    StavkaPorudzbineDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -90,14 +95,20 @@ const Routes = [
     MatCheckboxModule,
     MatNativeDateModule,
     FormsModule,
+    MatPaginatorModule,
+    MatSortModule,
     RouterModule.forRoot(Routes)
   ],
-  entryComponents: [
-    ArtiklDialogComponent,
-    DobavljacDialogComponent,
-    PorudzbinaDialogComponent
+  entryComponents: [ArtiklDialogComponent,
+                    DobavljacDialogComponent,
+                    PorudzbinaDialogComponent,
+                    StavkaPorudzbineDialogComponent
   ],
-  providers: [ArtiklService, DobavljacService, PorudzbinaService],
+  providers: [ArtiklService,
+              DobavljacService, 
+              PorudzbinaService,
+              StavkaPorudzbineService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
